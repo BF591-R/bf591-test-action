@@ -1,0 +1,24 @@
+name: 'BF591-R Test Action'
+description: Runs the tests for a BF591-R assignment using the main.R and test_main.R in the repo
+inputs:
+  main:
+    description: filename of the script containing the functions to test
+    required: true
+    default: "main.R"
+  tests:
+    description: filename of the script containing the tests for the functions in main
+    required: true
+    default: "test_main.R"
+  tests-out:
+    description: filename in which to store the standard output of the tests
+    required: true
+    default: "test_report.out"
+
+runs:
+  using: 'docker'
+  image: ghcr.io/bf591-r/bf591-r-docker:latest
+  args:
+    - "test"
+    - ${{ inputs.main }}
+    - ${{ inputs.tests }}
+    - ${{ inputs.tests-out }}
